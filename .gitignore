@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+.claude/
+# video originali (pesanti): restano solo in locale, sul sito vanno quelli in assets/video
+src/video/

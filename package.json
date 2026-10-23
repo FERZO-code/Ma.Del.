@@ -1,0 +1,18 @@
+{
+  "name": "ma.del.",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "images": "node scripts/build-images.mjs",
+    "dev": "npx --yes serve@14.2.4 -l 4321 ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
