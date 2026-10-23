@@ -172,7 +172,9 @@ html.js:not(.no-intro):not(.intro-over) body { overflow: hidden; }
   transition: color .2s, background-color .2s;
 }
 .nav a:hover { color: var(--bianco); background: rgba(238, 242, 245, .08); }
-.header-actions { display: flex; align-items: center; gap: 14px; }
+.header-actions { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+.nav + .header-actions { margin-left: 0; }
+.nav-call { display: none; }
 .menu-btn { display: none; }
 
 /* Stato ufficio (aperto/chiuso) */
@@ -603,14 +605,24 @@ html.js:not(.no-intro):not(.intro-over) body { overflow: hidden; }
   .menu-open .menu-bars { background: transparent; }
   .menu-open .menu-bars::before { transform: translateY(6px) rotate(45deg); }
   .menu-open .menu-bars::after { transform: translateY(-6px) rotate(-45deg); }
+  .nav + .header-actions { margin-left: auto; }
+  .menu-open body { overflow: hidden; }
   .menu-open .nav {
     display: flex; flex-direction: column; gap: 0;
-    position: fixed; inset: var(--header-h) 0 auto; margin: 0;
-    padding: 12px var(--gutter) 24px;
-    background: var(--navy); border-bottom: 1px solid var(--line-dark);
+    position: fixed; top: var(--header-h); left: 0; right: 0;
+    height: calc(100dvh - var(--header-h)); margin: 0;
+    padding: 12px var(--gutter) calc(24px + env(safe-area-inset-bottom));
+    background: var(--navy); overflow-y: auto;
+    animation: menu-in .3s var(--ease);
   }
-  .menu-open .nav a { padding: 16px 4px; font-size: 1.25rem; border-radius: 0; border-bottom: 1px solid var(--line-dark); }
-  .menu-open .site-header { background: var(--navy); }
+  @keyframes menu-in { from { opacity: 0; transform: translateY(-8px); } }
+  .menu-open .nav a { padding: 18px 4px; font-size: 1.35rem; font-weight: 600; border-radius: 0; border-bottom: 1px solid var(--line-dark); color: var(--carta); }
+  .menu-open .nav .nav-call {
+    display: flex; margin-top: 28px; border: 0; border-radius: 999px;
+    padding: 16px 22px; font-size: 1.05rem; color: var(--bianco);
+  }
+  /* header pieno (niente backdrop-filter) a menu aperto: il filtro romperebbe il position: fixed del pannello */
+  .menu-open .site-header, .menu-open .site-header.is-solid { background: var(--navy); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 @media (max-width: 900px) {
@@ -630,7 +642,9 @@ html.js:not(.no-intro):not(.intro-over) body { overflow: hidden; }
 @media (max-width: 640px) {
   body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
   .btn-call.btn-sm span { display: none; }
-  .btn-call.btn-sm { width: 44px; height: 44px; min-height: 44px; padding: 0; }
+  .btn-call.btn-sm { width: 44px; height: 44px; min-height: 44px; padding: 0; gap: 0; flex: none; }
+  .header-actions { gap: 10px; }
+  .menu-btn { flex: none; color: var(--carta); }
   .hero-ctas .btn, .film-side .btn { width: 100%; }
   .player-label { font-size: .95rem; }
   .proof { gap: 14px 24px; }

@@ -62,7 +62,9 @@
   const setMenu = (open) => {
     doc.classList.toggle('menu-open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
+    $('.sr', menuBtn).textContent = open ? 'Chiudi menu' : 'Menu';
   };
+  addEventListener('resize', () => { if (innerWidth > 1080) setMenu(false); });
   menuBtn.addEventListener('click', () => setMenu(!doc.classList.contains('menu-open')));
   $$('#nav a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
   addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
