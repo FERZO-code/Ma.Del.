@@ -33,8 +33,12 @@ for (const [name, [file, widths]] of Object.entries(photos)) {
   }
 }
 
+// Ritratto del titolare (versione in studio, rifinita con Higgsfield)
+for (const w of [520, 800]) {
+  await sharp(SRC + 'pietro-studio.png').resize({ width: w }).webp({ quality: 76 }).toFile(`${OUT}pietro-${w}.webp`);
+}
+
 // Ritagli con trasparenza
-await sharp(SRC + '2-3.png').resize({ width: 520 }).webp({ quality: 80, alphaQuality: 90 }).toFile(OUT + 'pietro.webp');
 await sharp(SRC + 'Piero-Maggiorano-Firma.png').negate({ alpha: false }).webp({ quality: 90 }).toFile(OUT + 'firma.webp');
 
 // Goccia del logo (icona) per header e intro
